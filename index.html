@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiprek! - The Authentic Ayam Geprek</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="icon.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#E5231B',    // Logo Red (Comb/Wattle)
+                            yellow: '#FBB03B', // Logo Yellow (Text/Beak)
+                            orange: '#F26122',
+                            green: '#8DC63F',
+                            dark: '#111111',
+                            light: '#F8F9FA'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-red': '0 0 10px rgba(229, 35, 27, 0.5), 0 0 20px rgba(229, 35, 27, 0.3)',
+                        'neon-yellow': '0 0 10px rgba(251, 176, 59, 0.5), 0 0 20px rgba(251, 176, 59, 0.3)',
+                        'solid': '6px 6px 0px 0px #111111',
+                        'solid-hover': '2px 2px 0px 0px #111111',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8F9FA;
+            color: #111111;
+            overflow-x: hidden;
+            background-image: radial-gradient(#E5231B 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-attachment: fixed;
+        }
+
+        /* Marquee Animation */
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+            background: #111111;
+            color: #FBB03B;
+            padding: 10px 0;
+            border-top: 2px solid #111;
+            border-bottom: 2px solid #111;
+            display: flex;
+            width: 100%;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 30s linear infinite;
+            width: max-content;
+        }
+
+        .marquee p {
+            padding: 0 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            flex-shrink: 0;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Custom Button Hover */
+        .btn-brutal {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 6px 6px 0px 0px #111111;
+        }
+
+        .btn-brutal:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0px 0px #111111;
+        }
+
+        /* Floating elements */
+        .float-1 {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-2 {
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        /* Noise overlay for texture */
+        .noise::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Gradient text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #E5231B, #FBB03B);
+        }
+
+        /* Spoiler Animation */
+        details[open] summary~* {
+            animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform-origin: top;
+        }
+
+        @keyframes slideDownFade {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) scaleY(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scaleY(1);
+            }
+        }
+    </style>
+</head>
+
+<body class="noise font-sans antialiased selection:bg-brand-red selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 top-2 sm:top-4 px-2 sm:px-6 inline-flex justify-center">
+        <div
+            class="bg-white/90 backdrop-blur-md border-4 border-brand-dark rounded-full px-3 py-2 sm:px-6 sm:py-3 flex items-center justify-between w-full max-w-4xl shadow-solid">
+            <div
+                class="text-sm sm:text-lg md:text-3xl font-black italic tracking-tighter text-brand-dark flex items-center gap-1 sm:gap-2 leading-tight">
+                <img src="icon.png" alt="Chiprek Icon" class="h-6 sm:h-8 w-auto">
+                The Authentic Ayam Geprek<span class="text-brand-red">!</span>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-6 flex-shrink-0 ml-2">
+                <a href="#menu"
+                    class="hidden md:inline-block font-bold text-lg hover:text-brand-red transition-colors">Menu</a>
+                <a href="#order"
+                    class="bg-brand-yellow text-brand-dark border-2 border-brand-dark font-black px-4 py-1.5 sm:px-6 sm:py-2 rounded-full uppercase tracking-wider text-xs sm:text-sm btn-brutal whitespace-nowrap">
+                    Pesan
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-20 px-4 overflow-hidden">
+        <!-- Background Blobs -->
+        <div
+            class="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 bg-brand-red rounded-full mix-blend-multiply filter blur-3xl opacity-30 float-1">
+        </div>
+        <div
+            class="absolute top-1/3 right-1/4 w-96 h-96 bg-brand-yellow rounded-full mix-blend-multiply filter blur-3xl opacity-30 float-2">
+        </div>
+
+        <div class="relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center mt-8">
+
+            <!-- SEO H1 hidden visually but reads to screen readers -->
+            <h1 class="sr-only">Chiprek! The Authentic Ayam Geprek</h1>
+
+            <!-- Logo Integration (Replaces Text H1) -->
+            <img src="logo.png" alt="Logo Chiprek - The Authentic Ayam Geprek"
+                class="w-80 md:w-[500px] lg:w-[600px] mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-500 ease-out z-10">
+
+            <div
+                class="inline-block bg-brand-dark text-brand-yellow font-black px-4 py-1 rounded-full text-sm uppercase tracking-widest mb-6 -rotate-2 shadow-solid relative z-20">
+                100% Beneran digeprek
+            </div>
+
+            <p class="text-lg md:text-2xl font-semibold mb-10 max-w-2xl text-gray-800 leading-relaxed font-sans mt-2">
+                Kapan lagi makan ayam geprek enak boleh ambil nasi sepuasnya??!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 mt-2 relative z-20">
+                <a href="#order"
+                    class="bg-brand-red text-white text-xl font-black px-10 py-5 rounded-xl uppercase tracking-wider btn-brutal border-4 border-brand-dark">
+                    PESAN SEKARANG!
+                </a>
+                <a href="#menu"
+                    class="bg-white text-brand-dark text-xl font-black px-10 py-5 rounded-xl uppercase tracking-wider btn-brutal border-4 border-brand-dark flex items-center justify-center gap-2">
+                    <i data-lucide="eye"></i> Liat Menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee divider -->
+    <div class="marquee mt-10 rotate-1 scale-105 border-y-4 border-brand-dark bg-brand-yellow text-brand-dark flex">
+        <div class="marquee-content">
+            <!-- First half -->
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+            <!-- Second half (clone for seamless loop) -->
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+            <p>PEDASNYA NAMPOL 🔥 RASANYA GOKIL 💥 AYAMNYA JUICY 🍗 BIKIN NAGIH LAGI DAN LAGI 🚀</p>
+        </div>
+    </div>
+
+    <!-- Main Section: Products/Services -->
+    <section id="menu" class="py-32 px-4 relative z-10 bg-brand-light overflow-hidden">
+
+        <!-- Parallax Background Icons -->
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-5">
+            <i data-lucide="drumstick"
+                class="absolute top-[10%] left-[5%] w-32 h-32 text-brand-dark -rotate-12 float-1"></i>
+            <i data-lucide="smile"
+                class="absolute top-[20%] right-[10%] w-40 h-40 text-brand-dark rotate-12 float-2"></i>
+            <i data-lucide="utensils-crossed"
+                class="absolute top-[40%] left-[15%] w-24 h-24 text-brand-dark rotate-45 float-1"
+                style="animation-delay: 1s;"></i>
+            <i data-lucide="cup-soda" class="absolute top-[60%] right-[5%] w-36 h-36 text-brand-dark -rotate-12 float-2"
+                style="animation-delay: 2s;"></i>
+            <i data-lucide="laugh" class="absolute bottom-[10%] left-[20%] w-48 h-48 text-brand-dark rotate-12 float-1"
+                style="animation-delay: 0.5s;"></i>
+            <i data-lucide="drumstick"
+                class="absolute bottom-[20%] right-[15%] w-24 h-24 text-brand-dark -rotate-45 float-2"
+                style="animation-delay: 1.5s;"></i>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-20">
+                <h2
+                    class="text-5xl md:text-7xl font-black uppercase tracking-tighter border-b-8 border-brand-red inline-block pb-2 text-brand-dark">
+                    Menu Andalan</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
+
+                <!-- Card 1 -->
+                <div
+                    class="bg-white border-4 border-brand-dark rounded-3xl p-6 hover:-translate-y-4 transition-transform duration-300 shadow-solid group relative overflow-hidden flex flex-col h-full">
+                    <div
+                        class="absolute -right-10 -top-10 w-32 h-32 bg-brand-yellow rounded-full z-0 group-hover:scale-150 transition-transform duration-500 ease-out">
+                    </div>
+                    <div class="relative z-10 flex-1 flex flex-col">
+                        <div
+                            class="w-full aspect-square rounded-2xl border-4 border-brand-dark shadow-[4px_4px_0px_0px_#111] mb-6 overflow-hidden bg-brand-light">
+                            <img src="foto1.jpg" alt="Geprek Original"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-2xl lg:text-3xl font-black uppercase mb-3 text-brand-dark">Geprek Indomie Moza
+                        </h3>
+                        <p class="text-base lg:text-lg font-medium text-gray-600 mb-6 flex-grow">Level up dari yang ori.
+                            Dipadukan dengan kelezatan Indomie Goreng dan balutan keju yang gurih.</p>
+                        <div class="text-2xl font-black text-brand-red mt-auto">Rp 26.000</div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-brand-dark text-white border-4 border-brand-dark rounded-3xl p-6 hover:-translate-y-4 transition-transform duration-300 shadow-[8px_8px_0px_0px_#E5231B] group relative overflow-hidden flex flex-col h-full">
+                    <div
+                        class="absolute -right-10 -top-10 w-32 h-32 bg-brand-red rounded-full z-0 group-hover:scale-150 transition-transform duration-500 ease-out opacity-50">
+                    </div>
+                    <div class="relative z-10 flex-1 flex flex-col">
+                        <div
+                            class="w-full aspect-square rounded-2xl border-4 border-brand-dark shadow-[4px_4px_0px_0px_#111] mb-6 overflow-hidden bg-white/10">
+                            <img src="foto2.jpg" alt="Geprek Melted"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-2xl lg:text-3xl font-black uppercase mb-3 text-brand-yellow">Geprek Original
+                        </h3>
+                        <p class="text-base lg:text-lg font-medium text-gray-300 mb-6 flex-grow">Ayam crispy dihancurin
+                            bareng sambal bawang yang jujur pedesnya. Bikin keluar air mata bahagia.</p>
+                        <div
+                            class="text-2xl font-black text-brand-red bg-white inline-block px-4 py-1 rounded-full border-2 border-brand-dark shadow-[2px_2px_0px_0px_#111] self-start mt-auto">
+                            Rp 18.000</div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-white border-4 border-brand-dark rounded-3xl p-6 hover:-translate-y-4 transition-transform duration-300 shadow-solid group relative overflow-hidden flex flex-col h-full">
+                    <div
+                        class="absolute -right-10 -top-10 w-32 h-32 bg-brand-green rounded-full z-0 group-hover:scale-150 transition-transform duration-500 ease-out">
+                    </div>
+                    <div class="relative z-10 flex-1 flex flex-col">
+                        <div
+                            class="w-full aspect-square rounded-2xl border-4 border-brand-dark shadow-[4px_4px_0px_0px_#111] mb-6 overflow-hidden bg-brand-light">
+                            <img src="foto3.jpg" alt="Geprek Salted Egg"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-2xl lg:text-3xl font-black uppercase mb-3 text-brand-dark">Geprek Keju</h3>
+                        <p class="text-base lg:text-lg font-medium text-gray-600 mb-6 flex-grow">Ayam geprek crispy
+                            original yang diselimuti parutan keju melimpah. Gurihnya dobel, nagihnya maksimal!</p>
+                        <div class="text-2xl font-black text-brand-orange mt-auto">Rp 26.000</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- "Menu Lengkap" Spoiler / Accordion -->
+        <div class="mt-12 max-w-5xl mx-auto">
+            <details
+                class="group bg-white border-4 border-brand-dark rounded-3xl overflow-hidden shadow-solid transition-all duration-300 open:shadow-[2px_2px_0px_0px_#111] open:translate-y-1">
+                <summary
+                    class="bg-brand-yellow text-brand-dark text-xl md:text-2xl font-black px-6 md:px-10 py-5 cursor-pointer list-none flex justify-center items-center gap-4 outline-none uppercase tracking-wider hover:bg-brand-red hover:text-white transition-colors text-center w-full">
+                    <span>Lihat Menu Lengkap</span>
+                    <span
+                        class="transition-transform duration-300 group-open:rotate-180 bg-brand-dark text-brand-yellow group-hover:text-white rounded-full p-1 border-2 border-transparent group-hover:border-white group-open:bg-brand-red group-open:text-white">
+                        <i data-lucide="chevron-down" class="w-6 h-6"></i>
+                    </span>
+                </summary>
+                <div class="p-6 md:p-10 bg-brand-light border-t-4 border-brand-dark relative">
+                    <!-- Background decoration inside spoiler -->
+                    <div
+                        class="absolute right-0 bottom-0 opacity-10 pointer-events-none scale-150 translate-x-1/4 translate-y-1/4">
+                        <i data-lucide="utensils-crossed" class="w-64 h-64 text-brand-dark"></i>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+                        <!-- Column 1: Makanan -->
+                        <div>
+                            <h4
+                                class="text-2xl font-black text-brand-red border-b-4 border-brand-dark pb-3 mb-6 uppercase tracking-tight flex items-center gap-2">
+                                <i data-lucide="pizza" class="w-6 h-6"></i> Makanan
+                            </h4>
+                            <ul class="space-y-4 font-semibold text-gray-800 text-lg">
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Ayam Geprek</span> <span class="text-brand-dark font-black">13 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Nasi Ayam Geprek</span> <span class="text-brand-dark font-black">18
+                                        K</span>
+                                </li>
+                                <!-- Wrapping long text on mobile, keeping price on right via flex -->
+                                <li
+                                    class="flex justify-between items-end border-b-2 border-gray-300 border-dotted pb-1 gap-2">
+                                    <span>Nasi Ayam Geprek<br><span class="text-sm text-black-500 font-medium">+ Es
+                                            Teh Manis</span></span> <span
+                                        class="text-brand-dark font-black whitespace-nowrap">20 K</span>
+                                </li>
+                                <li
+                                    class="flex justify-between items-end border-b-2 border-gray-300 border-dotted pb-1 gap-2">
+                                    <span>Nasi Ayam Geprek<br><span class="text-sm font-bold text-brand-yellow">+
+                                            Mozarella</span></span> <span
+                                        class="text-brand-dark font-black whitespace-nowrap">27 K</span>
+                                </li>
+                                <li
+                                    class="flex justify-between items-end border-b-2 border-gray-300 border-dotted pb-1 gap-2">
+                                    <span>Indomie Goreng Ayam Geprek<br><span
+                                            class="text-sm text-gray-500 font-medium"></span></span> <span
+                                        class="text-brand-dark font-black whitespace-nowrap">19 K</span>
+                                </li>
+                                <li
+                                    class="flex justify-between items-end border-b-2 border-gray-300 border-dotted pb-1 gap-2">
+                                    <span>Indomie Goreng Ayam Geprek<br><span
+                                            class="text-sm font-bold text-brand-yellow"> + Mozarella</span></span> <span
+                                        class="text-brand-dark font-black whitespace-nowrap">26 K</span>
+                                </li>
+                                <li
+                                    class="flex justify-between items-end border-b-2 border-gray-300 border-dotted pb-1 gap-2">
+                                    <span>Geprek Mentai<br><span class="text-sm font-bold text-brand-yellow">+
+                                            Mozarella</span></span> <span
+                                        class="text-brand-dark font-black whitespace-nowrap">26 K</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Column 2: Minuman -->
+                        <div>
+                            <h4
+                                class="text-2xl font-black text-brand-green border-b-4 border-brand-dark pb-3 mb-6 uppercase tracking-tight flex items-center gap-2">
+                                <i data-lucide="cup-soda" class="w-6 h-6"></i> Minuman
+                            </h4>
+                            <ul class="space-y-4 font-semibold text-gray-800 text-lg">
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Es Teh Manis</span> <span class="text-brand-dark font-black">4 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Es Teh Tawar</span> <span class="text-brand-dark font-black">3 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Nutrisari</span> <span class="text-brand-dark font-black">4 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Good Day <span class="text-sm text-gray-500 font-medium">(Varian
+                                            Rasa)</span></span>
+                                    <span class="text-brand-dark font-black">5 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Good Day Cappuccino</span> <span class="text-brand-dark font-black">6
+                                        K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Air Putih Es</span> <span class="text-brand-dark font-black">1 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Mineral Botol 600ml</span> <span class="text-brand-dark font-black">4
+                                        K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Mineral Botol 1500ml</span> <span class="text-brand-dark font-black">6
+                                        K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Teh Pucuk</span> <span class="text-brand-dark font-black">4 K</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Column 3: Ala Carte -->
+                        <div>
+                            <h4
+                                class="text-2xl font-black text-brand-orange border-b-4 border-brand-dark pb-3 mb-6 uppercase tracking-tight flex items-center gap-2">
+                                <i data-lucide="beef" class="w-6 h-6"></i> Ala Carte
+                            </h4>
+                            <ul class="space-y-4 font-semibold text-gray-800 text-lg">
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Tahu</span> <span class="text-brand-dark font-black">2 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Tempe</span> <span class="text-brand-dark font-black">2 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Kol Goreng</span> <span class="text-brand-dark font-black">6 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Jamur</span> <span class="text-brand-dark font-black">6 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Indomie Goreng</span> <span class="text-brand-dark font-black">6 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Kerupuk Kaleng</span> <span class="text-brand-dark font-black">2 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Kerupuk Kulit</span> <span class="text-brand-dark font-black">3 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Nasi Putih</span> <span class="text-brand-dark font-black">7 K</span>
+                                </li>
+                                <li class="flex justify-between border-b-2 border-gray-300 border-dotted pb-1">
+                                    <span>Kulit Goreng</span> <span class="text-brand-dark font-black">3 K</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <!-- End of Full Menu -->
+    </section>
+
+    <!-- CTA Section -->
+    <section id="order"
+        class="py-32 px-4 relative bg-brand-red text-white overflow-hidden border-y-4 border-brand-dark">
+        <!-- Decor -->
+        <div
+            class="absolute -left-10 bottom-10 rotate-12 bg-brand-yellow text-brand-dark p-4 border-4 border-brand-dark rounded-2xl text-2xl font-black italic shadow-solid">
+            #TheAuthenticAyamGeprek
+        </div>
+        <div
+            class="absolute right-10 top-10 -rotate-12 bg-white p-4 border-4 border-brand-dark rounded-full flex items-center justify-center w-24 h-24 shadow-solid">
+            <i data-lucide="star" class="w-10 h-10 fill-brand-yellow stroke-brand-dark stroke-[3]"></i>
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-8 leading-none"
+                style="-webkit-text-stroke: 1px #111;">
+                Laper?<br>Jangan Ditahan!
+            </h2>
+            <p class="text-xl md:text-2xl font-bold mb-12 max-w-2xl mx-auto">
+                Order sekarang, perut kenyang, hati senang. Langsung aja klik tombol segede gaban di bawah ini.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-stretch max-w-5xl mx-auto">
+                <!-- GoFood Button -->
+                <a href="https://gofood.link/u/YKd5V" target="_blank" rel="noopener noreferrer"
+                    class="w-full flex-1 flex items-center justify-center gap-2 md:gap-3 bg-white text-[#ED2736] text-lg sm:text-xl md:text-2xl font-black px-4 py-5 md:px-6 md:py-6 rounded-3xl uppercase tracking-widest leading-tight text-center btn-brutal border-8 border-brand-dark shadow-[8px_8px_0px_0px_#111] hover:bg-gray-100 h-full">
+                    <svg viewBox="0 0 24 24" class="w-8 h-8 flex-shrink-0 fill-current"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
+                    </svg>
+                    <span>Pesan via<br>GoFood</span>
+                </a>
+
+                <!-- GrabFood Button -->
+                <a href="https://r.grab.com/g/6-20260227_092537_164ec2ba995b4fe79f47064e10db8937_MEXMPS-IDGFSTI00002xui"
+                    target="_blank" rel="noopener noreferrer"
+                    class="w-full flex-1 flex items-center justify-center gap-2 md:gap-3 bg-[#00B14F] text-white text-lg sm:text-xl md:text-2xl font-black px-4 py-5 md:px-6 md:py-6 rounded-3xl uppercase tracking-widest leading-tight text-center btn-brutal border-8 border-brand-dark shadow-[8px_8px_0px_0px_#111] hover:bg-[#009e46] h-full">
+                    <svg viewBox="0 0 24 24" class="w-8 h-8 flex-shrink-0 fill-current"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
+                    </svg>
+                    <span>Pesan via<br>GrabFood</span>
+                </a>
+
+                <!-- ShopeeFood Button -->
+                <a href="https://spf.shopee.co.id/4qAVaM61F1" target="_blank" rel="noopener noreferrer"
+                    class="w-full flex-1 flex items-center justify-center gap-2 md:gap-3 bg-[#EE4D2D] text-white text-lg sm:text-xl md:text-2xl font-black px-4 py-5 md:px-6 md:py-6 rounded-3xl uppercase tracking-widest leading-tight text-center btn-brutal border-8 border-brand-dark shadow-[8px_8px_0px_0px_#111] hover:bg-[#d84022] h-full">
+                    <svg viewBox="0 0 24 24" class="w-8 h-8 flex-shrink-0 fill-current"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v10c0 2.21 1.79 4 4 4h10c2.21 0 4-1.79 4-4V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z" />
+                    </svg>
+                    <span>Pesan via<br>ShopeeFood</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="py-24 px-4 relative z-10 bg-white">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+
+            <div class="flex-1 w-full relative">
+                <div class="absolute -inset-4 bg-brand-yellow rounded-3xl -z-10 rotate-3 shadow-solid"></div>
+                <div
+                    class="bg-brand-dark rounded-3xl overflow-hidden border-4 border-brand-dark h-[400px] w-full relative shadow-solid group">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15860.970267786483!2d106.82283!3d-6.3627068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed1e9569ce45%3A0xe6bf44bc477cd6!2sJl.%20K.H.M.%20Yusuf%20Raya%20No.8%2C%20Bakti%20Jaya%2C%20Kec.%20Sukmajaya%2C%20Kota%20Depok%2C%20Jawa%20Barat%2016418!5e0!3m2!1sen!2sid!4v1704598!5m2!1sen!2sid"
+                        class="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700"
+                        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <!-- Overlay text asking to touch map -->
+                    <div
+                        class="absolute inset-0 pointer-events-none flex items-center justify-center bg-black/40 group-hover:opacity-0 transition-opacity duration-500">
+                        <span
+                            class="bg-brand-red text-white py-2 px-6 rounded-full font-bold uppercase tracking-widest border-2 border-white/50 backdrop-blur-sm">
+                            Lihat Peta
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 w-full text-center md:text-left">
+                <div
+                    class="inline-flex items-center justify-center w-16 h-16 bg-brand-red rounded-full border-4 border-brand-dark shadow-[4px_4px_0px_0px_#111] mb-6 text-white">
+                    <i data-lucide="map-pin" class="w-8 h-8"></i>
+                </div>
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 text-brand-dark">
+                    Lokasi Kami<span class="text-brand-red">!</span>
+                </h2>
+                <p class="text-xl md:text-2xl font-bold mb-8 text-gray-700 max-w-lg">
+                    Tempat Nongkrong Asik, Ayam Geprek Ciamik.
+                </p>
+
+                <div
+                    class="bg-brand-light p-6 rounded-2xl border-4 border-brand-dark shadow-[4px_4px_0px_0px_#111] mb-8 inline-block text-left w-full max-w-md">
+                    <h4 class="text-brand-red font-black uppercase tracking-wider text-sm mb-2">Chiprek HQ:</h4>
+                    <p class="text-lg font-medium text-brand-dark mb-4">
+                        Jl. H. M. Tohir No.8,<br>Pondok Cina, Depok, Jawa Barat<br>
+                        WhatsApp: <a href="https://wa.me/6282241313535" target="_blank"
+                            class="text-brand-red font-bold hover:underline">082241313535</a>
+                    </p>
+                    <a href="https://maps.app.goo.gl/daRA1cxWJq2mU1HH6" target="_blank" rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 text-brand-dark font-black hover:text-brand-red transition-colors group">
+                        Buka di Google Maps
+                        <i data-lucide="arrow-up-right"
+                            class="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Instagram Feed Section -->
+    <section id="instagram"
+        class="py-24 px-4 relative z-10 bg-brand-light border-y-4 border-brand-dark overflow-hidden">
+        <!-- Decor -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none scale-150 translate-x-1/4">
+            <i data-lucide="camera" class="w-96 h-96 text-brand-dark"></i>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div>
+                    <div
+                        class="inline-flex items-center gap-2 bg-[#E1306C] text-white font-black px-4 py-1 rounded-full text-sm uppercase tracking-widest mb-4 shadow-[4px_4px_0px_0px_#111] border-2 border-brand-dark">
+                        <i data-lucide="instagram" class="w-4 h-4"></i> Instagram Kami
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter text-brand-dark">
+                        Kepoin Beranda Kita!
+                    </h2>
+                    <p class="text-xl font-bold text-gray-600 mt-2">
+                        Mention <a href="https://www.instagram.com/chiprek_/" target="_blank"
+                            class="text-[#E1306C] hover:underline hover:text-brand-dark transition-colors">@chiprek_</a>
+                        buat pamer ke temen-temen lo.
+                    </p>
+                </div>
+
+                <a href="https://www.instagram.com/chiprek_/" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex flex-shrink-0 items-center gap-2 bg-[#E1306C] text-white text-lg font-black px-8 py-4 rounded-full uppercase tracking-wider btn-brutal border-4 border-brand-dark hover:-translate-y-1 group">
+                    <i data-lucide="instagram"
+                        class="w-6 h-6 group-hover:rotate-12 transition-transform duration-300"></i> Follow Instagram
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-12 px-4 border-t-8 border-brand-yellow">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-4xl font-black italic tracking-tighter text-brand-light flex items-center gap-2">
+                <img src="icon.png" alt="Chiprek Icon" class="h-10 w-auto">
+                The Authentic Ayam Geprek<span class="text-brand-red">!</span>
+            </div>
+
+            <p class="font-semibold text-gray-400">
+                &copy; 2026 Chiprek!.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
